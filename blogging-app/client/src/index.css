@@ -1,0 +1,18 @@
+/* client/src/index.css */
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.posts{
+    background-color: aliceblue;
+}
+
+body{
+    background-color:  rgba(255, 228, 196, 0.06);
+}

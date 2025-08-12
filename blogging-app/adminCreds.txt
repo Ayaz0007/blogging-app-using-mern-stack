@@ -1,0 +1,2 @@
+mail = admin@demo.com
+password = 123654

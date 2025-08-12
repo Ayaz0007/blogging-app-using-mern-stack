@@ -47,7 +47,17 @@ router.post("/login", async (req, res) => {
 
     const token = user.generateAuthToken(); // Generate token
 
-    res.json({ message: "Login successful", token });
+    // Send user info including role
+    res.json({
+      message: "Login successful",
+      token,
+      user: {
+        id: user._id,
+        name: user.name,
+        email: user.email,
+        role: user.role // <-- Add this line
+      }
+    });
   } catch (error) {
     console.error("Login error:", error.message);
     res.status(500).json({ message: "Server error" });
@@ -83,40 +93,44 @@ router.get('/profile/:email', async (req, res) => {
   }
 });
 
-//Route for Password change
-// router.put("/password", auth, async (req, res) => {
-//   try {
-//     const user = req.user ? await User.findById(req.user.id) : null;
-//     if (!user) {
-//       return res.status(404).json({ message: "User not found" });
-//     }
+// Update user profile
+router.put('/profile/:email', async (req, res) => {
+  try {
+    const { email } = req.params;
+    const updateData = req.body;
 
-//     const { currentPassword, newPassword, confirmPassword } = req.body;
+    const updatedUser = await User.findOneAndUpdate(
+      { email },
+      { $set: updateData },
+      { new: true }
+    );
 
-//     // Check current password
-//     const isMatch = await user.comparePassword(currentPassword);
-//     if (!isMatch) {
-//       return res.status(400).json({ message: "Invalid current password" });
-//     }
+    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
 
-//     // Check if new password and confirm password match
-//     if (newPassword !== confirmPassword) {
-//       return res.status(400).json({ message: "Passwords do not match" });
-//     }
+    res.status(200).json(updatedUser);
+  } catch (err) {
+    res.status(500).json({ message: 'Update failed', error: err.message });
+  }
+});
 
-//     // Hash the new password
-//     const salt = await bcrypt.genSalt(10);
-//     const hashedPassword = await bcrypt.hash(newPassword, salt);
+// Change password route
+router.post('/change-password', async (req, res) => {
+  try {
+    const { email, currentPassword, newPassword } = req.body;
 
-//     // Change password
-//     user.password = hashedPassword;
-//     await user.save();
+    const user = await User.findOne({ email });
+    if (!user) return res.status(404).json({ message: 'User not found' });
 
-//     res.json({ message: "Password changed successfully" });
-//   } catch (error) {
-//     console.error("Change password error:", error.stack);
-//     res.status(500).json({ message: "Server error" });
-//   }
-// });
+    const isMatch = await bcrypt.compare(currentPassword, user.password);
+    if (!isMatch) return res.status(400).json({ message: 'Incorrect current password' });
+
+    user.password = newPassword;
+    await user.save();
+
+    res.status(200).json({ message: 'Password changed successfully' });
+  } catch (err) {
+    res.status(500).json({ message: 'Something went wrong', error: err.message });
+  }
+});
 
 module.exports = router;

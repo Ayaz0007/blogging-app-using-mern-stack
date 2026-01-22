@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: blogging-app-server
+    runtime: node
+    plan: free
+    buildCommand: cd blogging-app/server && npm install
+    startCommand: cd blogging-app/server && npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: MONGODB_URI
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: PORT
+        value: 5000
+
+  - type: static
+    name: blogging-app-client
+    buildCommand: cd blogging-app/client && npm install && npm run build
+    staticPublishPath: blogging-app/client/dist
+    envVars:
+      - key: VITE_API_URL
+        value: https://your-render-backend-url.com

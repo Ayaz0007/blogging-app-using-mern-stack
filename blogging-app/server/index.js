@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
@@ -12,7 +13,7 @@ app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve u
 
 // MongoDB connection
 mongoose
-  .connect("mongodb://localhost:27017/blog", {
+  .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
@@ -132,7 +133,7 @@ app.delete("/posts/:id", async (req, res) => {
 app.use("/auth", authRoutes);
 
 // Server start
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
 });

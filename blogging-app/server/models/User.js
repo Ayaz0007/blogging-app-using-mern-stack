@@ -3,7 +3,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const config = require("config");
 
 const userSchema = new mongoose.Schema({
   name: {
@@ -26,7 +25,7 @@ const userSchema = new mongoose.Schema({
 });
 
 userSchema.methods.generateAuthToken = function () {
-  const token = jwt.sign({ id: this._id }, config.get("jwtSecret"));
+  const token = jwt.sign({ id: this._id }, process.env.JWT_SECRET || "fallback-secret-key");
   return token;
 };
 

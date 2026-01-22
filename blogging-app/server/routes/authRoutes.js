@@ -6,7 +6,6 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const auth = require("../middleware/auth");
 const jwt = require("jsonwebtoken");
-const config = require('config');
 
 // Signup route
 router.post("/signup", async (req, res) => {
@@ -68,7 +67,7 @@ router.post("/login", async (req, res) => {
 router.get("/profile", auth, async (req, res) => {
   try {
     // Fetch user profile based on the user ID in the request object
-    const user = await User.findById(req.user.id).select("-password");
+    const user = await User.findById(req.user).select("-password");
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }

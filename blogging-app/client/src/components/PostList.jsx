@@ -10,7 +10,7 @@ const PostList = () => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/posts");
+      const response = await axios.get("https://blogging-app-using-mern-stack.onrender.com/posts");
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);
@@ -19,7 +19,7 @@ const PostList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/posts/${id}`);
+      await axios.delete(`https://blogging-app-using-mern-stack.onrender.com/posts/${id}`);
       fetchPosts();
     } catch (error) {
       console.error("Error deleting post:", error.response?.data?.message);
@@ -61,7 +61,7 @@ const PostList = () => {
                 <img
                   src={
                     post.image
-                      ? `http://localhost:5000/uploads/${post.image}`
+                      ? `https://blogging-app-using-mern-stack.onrender.com/uploads/${post.image}`
                       : "/assets/elementor-placeholder-image.webp"
                   }
                   alt={post.title}

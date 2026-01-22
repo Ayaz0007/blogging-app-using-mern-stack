@@ -31,7 +31,7 @@ const Profile = () => {
   useEffect(() => {
     const fetchUser = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/auth/profile/${email}`, {
+        const res = await axios.get(`https://blogging-app-using-mern-stack.onrender.com/auth/profile/${email}`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         setUserData(res.data);
@@ -54,7 +54,7 @@ const Profile = () => {
   const handleUpdate = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/auth/profile/${email}`,
+        `https://blogging-app-using-mern-stack.onrender.com/auth/profile/${email}`,
         formData,
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -74,7 +74,7 @@ const Profile = () => {
 
     try {
       await axios.post(
-        `http://localhost:5000/auth/change-password`,
+        `https://blogging-app-using-mern-stack.onrender.com/auth/change-password`,
         { ...passwordData, email },
         { headers: { Authorization: `Bearer ${token}` } }
       );

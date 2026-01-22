@@ -11,7 +11,7 @@ const Category = () => {
     const fetchCategoryPosts = async () => {
       try {
         const formattedCategory = category.charAt(0).toUpperCase() + category.slice(1);
-        const res = await axios.get(`http://localhost:5000/posts?category=${formattedCategory}`);
+        const res = await axios.get(`https://blogging-app-using-mern-stack.onrender.com/posts?category=${formattedCategory}`);
         setPosts(res.data);
       } catch (err) {
         setPosts([]);
@@ -52,7 +52,7 @@ const Category = () => {
                 <img
                   src={
                     post.image
-                      ? `http://localhost:5000/uploads/${post.image}`
+                      ? `https://blogging-app-using-mern-stack.onrender.com/uploads/${post.image}`
                       : "/assets/elementor-placeholder-image.webp"
                   }
                   alt={post.title}

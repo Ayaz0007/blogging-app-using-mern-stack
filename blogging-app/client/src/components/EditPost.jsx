@@ -13,7 +13,7 @@ const EditPost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/posts/${id}`);
+        const res = await axios.get(`https://blogging-app-using-mern-stack.onrender.com/posts/${id}`);
         setTitle(res.data.title);
         setContent(res.data.content);
       } catch (err) {
@@ -27,7 +27,7 @@ const EditPost = () => {
   const handleUpdate = async (e) => {
     e.preventDefault();
     try {
-      await axios.put(`http://localhost:5000/posts/${id}`, { title, content });
+      await axios.put(`https://blogging-app-using-mern-stack.onrender.com/posts/${id}`, { title, content });
       navigate(`/post/${id}`);
     } catch (err) {
       console.error("Error updating post:", err);

@@ -52,7 +52,7 @@ const Signup = () => {
     try {
       setLoading(true);
       const { name, email, password } = formData;
-      const res = await axios.post("http://localhost:5000/auth/signup", {
+      const res = await axios.post("https://blogging-app-using-mern-stack.onrender.com/auth/signup", {
         name,
         email,
         password,

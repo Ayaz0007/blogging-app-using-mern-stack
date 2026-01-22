@@ -43,7 +43,7 @@ const AddPost = ({ setPosts }) => {
 
     try {
       setLoading(true);
-      await axios.post("http://localhost:5000/posts", formData, {
+      await axios.post("https://blogging-app-using-mern-stack.onrender.com/posts", formData, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
@@ -64,7 +64,7 @@ const AddPost = ({ setPosts }) => {
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get("http://localhost:5000/posts");
+      const response = await axios.get("https://blogging-app-using-mern-stack.onrender.com/posts");
       setPosts(response.data);
     } catch (error) {
       console.error("Error fetching posts:", error);

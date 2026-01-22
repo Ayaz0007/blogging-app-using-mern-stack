@@ -25,7 +25,7 @@ const App = () => {
   const location = useLocation();
 
   useEffect(() => {
-    axios.get("http://localhost:5000/posts").then((response) => {
+    axios.get("https://blogging-app-using-mern-stack.onrender.com/posts").then((response) => {
       setPosts(response.data);
     });
   }, []);

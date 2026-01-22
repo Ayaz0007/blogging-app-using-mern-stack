@@ -10,7 +10,7 @@ const SinglePost = () => {
   useEffect(() => {
     const fetchPost = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/posts/${id}`);
+        const res = await axios.get(`https://blogging-app-using-mern-stack.onrender.com/posts/${id}`);
         setPost(res.data);
       } catch (err) {
         console.error("Error fetching post:", err);
@@ -33,7 +33,7 @@ const SinglePost = () => {
         <img
           src={
             post.image
-              ? `http://localhost:5000/uploads/${post.image}`
+              ? `https://blogging-app-using-mern-stack.onrender.com/uploads/${post.image}`
               : "/assets/elementor-placeholder-image.webp"
           }
           alt={post.title}

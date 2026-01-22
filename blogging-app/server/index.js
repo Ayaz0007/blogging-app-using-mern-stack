@@ -12,6 +12,7 @@ app.use(express.json());
 app.use("/uploads", express.static(path.join(__dirname, "uploads"))); // Serve uploaded images
 
 // MongoDB connection
+console.log("MongoDB URI:", process.env.MONGODB_URI);
 mongoose
   .connect(process.env.MONGODB_URI, {
     useNewUrlParser: true,
